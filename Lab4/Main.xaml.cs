@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,12 +24,14 @@ namespace Lab4
     {
         private HttpClient httpClient;
         private MainWindow mainWindow;
+        private string? token;
         public Main(Response response,MainWindow window)
         {
             InitializeComponent();
             this.mainWindow = window;
             httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + response.access_token);
+            token = response.access_token;
             Task.Run(() => Load());
         }
         private async Task Load()
@@ -48,12 +51,13 @@ namespace Lab4
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            this.mainWindow.Show();
+            this.mainWindow.Close();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            GroupWindow groupWindow=new GroupWindow(token);
+            groupWindow.ShowDialog();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

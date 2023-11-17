@@ -23,15 +23,16 @@ namespace Lab4
     {
         private HttpClient client;
         private Group? group;
-        public GroupWindow()
+        public GroupWindow(string token)
         {
             InitializeComponent();
             client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
             Task.Run(() => Load());
         }
         private async Task Load()
         {
-            List<Group>? list = await client.GetFromJsonAsync<List<Group>>("http://localhost:5201/api/groups");
+            List<Group>? list = await client.GetFromJsonAsync<List<Group>>("http://localhost:5079/api/groups");
             Dispatcher.Invoke(() =>
             {
                 ListGroups.ItemsSource = null;
@@ -39,7 +40,6 @@ namespace Lab4
                 ListGroups.ItemsSource = list;
             });
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
