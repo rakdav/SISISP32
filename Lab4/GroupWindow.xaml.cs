@@ -40,9 +40,56 @@ namespace Lab4
                 ListGroups.ItemsSource = list;
             });
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async Task Save()
         {
+            Group group = new Group
+            {
+                Name = NameGroup.Text,
+                Faculty = Faculty.Text,
+                Speciality = Speciality.Text
+            };
+            JsonContent content = JsonContent.Create(group);
+            using var response = await client.PostAsync("http://localhost:5079/api/group", content);
+            string responseText = await response.Content.ReadAsStringAsync();
+            await Load();
+        }
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            await Save();
+        }
 
+        private void ListGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            group=ListGroups .SelectedItem as Group;
+            NameGroup.Text=group?.Name;
+            Faculty.Text=group?.Faculty;
+            Speciality.Text=group?.Speciality;
+        }
+
+        private async Task Edit()
+        {
+            group!.Name = NameGroup.Text;
+            group!.Faculty = Faculty.Text;
+            group!.Speciality = Speciality.Text;
+            JsonContent content = JsonContent.Create(group);
+            using var response = await client.PutAsync("http://localhost:5079/api/group", content);
+            string responseText = await response.Content.ReadAsStringAsync();
+            await Load();
+        }
+        private async Task Delete()
+        {
+            using var response = await client.DeleteAsync("http://localhost:5079/api/group/" + group?.Id);
+            string responseText = await response.Content.ReadAsStringAsync();
+            await Load();
+        }
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            await Edit();
+        }
+
+        private async void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            await Delete();
         }
     }
 }

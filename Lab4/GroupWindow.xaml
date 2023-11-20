@@ -12,7 +12,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <ListView x:Name="ListGroups" Grid.Column="0"
-                    Margin="10,10,10,10" FontSize="20">
+                    Margin="10,10,10,10" FontSize="20" SelectionChanged="ListGroups_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -44,7 +44,11 @@
                 <Label Content="Введите специальность"/>
                 <TextBox x:Name="Speciality" Height="40"/>
             </StackPanel>
-            <Button Content="Сохранить" Grid.Row="3" Margin="20 30" Click="Button_Click"/>
+            <StackPanel Grid.Row="3">
+                <Button Content="Сохранить" Click="Button_Click" Margin="20 5"/>
+                <Button Content="Изменить" Margin="20 5" Click="Button_Click_1"/>
+                <Button Content="Удалить" Margin="20 5" Click="Button_Click_2"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
