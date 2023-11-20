@@ -56,13 +56,14 @@ namespace Lab4
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            GroupWindow groupWindow=new GroupWindow(token);
+            GroupWindow groupWindow=new GroupWindow(token!);
             groupWindow.ShowDialog();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            StudentWindow studentWindow=new StudentWindow(token!);
+            studentWindow.ShowDialog();
         }
     }
 }
