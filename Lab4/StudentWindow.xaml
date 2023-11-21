@@ -33,8 +33,12 @@
         </StackPanel>
         <StackPanel Grid.Row="4">
             <Label Content="Выберите группу:"/>
-            <ComboBox x:Name="Group" Height="40" Margin="50 10"/>
+            <ComboBox x:Name="cbGroup" Height="40" Margin="50 10"/>
         </StackPanel>
-        <Button Grid.Row="5" Content="OK" Margin="50 30"/>
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="OK" Margin="10 30" Width="100" Click="Button_Click"/>
+            <Button Content="Cancel" Margin="10 30" Width="100" Click="Button_Click_1"/>
+        </StackPanel>
+       
     </Grid>
 </Window>

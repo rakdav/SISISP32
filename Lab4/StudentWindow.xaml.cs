@@ -35,8 +35,38 @@ namespace Lab4
             List<Group>? list = await client.GetFromJsonAsync<List<Group>>("http://localhost:5079/api/groups");
             Dispatcher.Invoke(() =>
             {
-                Group.ItemsSource = list?.Select(p=>p.Name);
+                cbGroup.ItemsSource = list?.Select(p=>p.Name);
             });
+        }
+        public string? NameProperty
+        {
+            get { return Name.Text; }
+        }
+        public string? FirstNameProperty
+        {
+            get { return FirstName.Text; }
+        }
+        public string? LastNameProperty
+        {
+            get { return Lastname.Text; }
+        }
+        public DateTime? DateBirthProperty
+        {
+            get { return DateTime.Parse(DateBirth.Text); }
+        }
+        public async Task<int> getIdGroup()
+        {
+                Group? group= await client.GetFromJsonAsync<Group>("http://localhost:5079/api/group/"+cbGroup.Text);
+            return group!.Id;
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult= false;
         }
     }
 }

@@ -53,7 +53,7 @@ p.Password == loginData.Password);
 app.MapGet("/api/groups", [Authorize] async (ModelDB db) => await db.Groups!.ToListAsync());
 app.MapGet("api/group/{id:int}", [Authorize] async (ModelDB db, int id) => await db.Groups!.Where(g => g.Id == id).FirstOrDefaultAsync());
 app.MapGet("/api/students", [Authorize] async (ModelDB db) => await db.Students!.ToListAsync());
-app.MapGet("/api/group/{name}", [Authorize] async (ModelDB db,string name) => await db.Groups!.Where(u=>u.Name==name).ToListAsync());
+app.MapGet("/api/group/{name}", [Authorize] async (ModelDB db,string name) => await db.Groups!.Where(u=>u.Name==name).FirstOrDefaultAsync());
 app.MapPost("/api/group", [Authorize] async (Group group, ModelDB db) =>
 {
     await db.Groups!.AddAsync(group);

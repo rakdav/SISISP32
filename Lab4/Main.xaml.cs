@@ -60,10 +60,24 @@ namespace Lab4
             groupWindow.ShowDialog();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
             StudentWindow studentWindow=new StudentWindow(token!);
-            studentWindow.ShowDialog();
+            if (studentWindow.ShowDialog() == true)
+            {
+                Student student = new Student
+                {
+                    Name = studentWindow.NameProperty,
+                    FirstName=studentWindow.FirstNameProperty,
+                    LastName=studentWindow.LastNameProperty,
+                    BirthDay=studentWindow.DateBirthProperty,
+                    GroupId=await studentWindow.getIdGroup()
+                };
+                JsonContent content = JsonContent.Create(student);
+                using var response = await httpClient.PostAsync("http://localhost:5079/api/student", content);
+                string responseText = await response.Content.ReadAsStringAsync();
+                await Load();
+            }
         }
     }
 }
