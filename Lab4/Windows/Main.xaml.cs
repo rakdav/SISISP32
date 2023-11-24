@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Lab4.Models;
 
 namespace Lab4
 {
@@ -40,7 +41,7 @@ namespace Lab4
             List<Student>? list = await httpClient.GetFromJsonAsync<List<Student>>("http://localhost:5079/api/students");
             foreach (Student i in list!)
             {
-                i.Group = await httpClient.GetFromJsonAsync<Group>("http://localhost:5079/api/group/" + i.GroupId);
+                i.Group = await httpClient.GetFromJsonAsync<Models.Group>("http://localhost:5079/api/group/" + i.GroupId);
             }
             Dispatcher.Invoke(() =>
             {
