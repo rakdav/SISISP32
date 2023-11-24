@@ -30,6 +30,18 @@ namespace Lab4
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
             Task.Run(()=>LoadGroups());
         }
+        public StudentWindow(String token,Student student)
+        {
+            InitializeComponent();
+            client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            Task.Run(() => LoadGroups());
+            Name.Text = student.Name;
+            FirstName.Text = student.FirstName;
+            Lastname.Text = student.LastName;
+            DateBirth.SelectedDate = student.BirthDay;
+            cbGroup.SelectedItem = student.Group!.Name;
+        }
         private async void LoadGroups()
         {
             List<Group>? list = await client.GetFromJsonAsync<List<Group>>("http://localhost:5079/api/groups");

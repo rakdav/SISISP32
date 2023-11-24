@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Security.Principal;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -59,7 +60,7 @@ namespace Lab4
             GroupWindow groupWindow=new GroupWindow(token!);
             groupWindow.ShowDialog();
         }
-
+        //добавление
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
             StudentWindow studentWindow=new StudentWindow(token!);
@@ -79,15 +80,32 @@ namespace Lab4
                 await Load();
             }
         }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        //изменение
+        private async void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            Student? st=ListStudents.SelectedItem as Student;
+            StudentWindow studentWindow = new StudentWindow(token!,st!);
+            if (studentWindow.ShowDialog() == true)
+            {
+                st!.Name = studentWindow.NameProperty;
+                st!.FirstName = studentWindow.FirstNameProperty;
+                st!.LastName = studentWindow.LastNameProperty;
+                st!.BirthDay = studentWindow.DateBirthProperty;
+                st!.GroupId = await studentWindow.getIdGroup();
+                JsonContent content = JsonContent.Create(st);
+                using var response = await httpClient.PutAsync("http://localhost:5079/api/student", content);
+                string responseText = await response.Content.ReadAsStringAsync();
+                await Load();
+            }
         }
-
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        //удаление
+        private async void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-
+            Student? st = ListStudents.SelectedItem as Student;
+            JsonContent content = JsonContent.Create(st);
+            using var response = await httpClient.DeleteAsync("http://localhost:5079/api/student/"+st!.Id);
+            string responseText = await response.Content.ReadAsStringAsync();
+            await Load();
         }
     }
 }
