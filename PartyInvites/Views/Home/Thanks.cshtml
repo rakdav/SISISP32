@@ -1,0 +1,23 @@
+﻿@model GuestResponse
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ответ на приглашение</title>
+</head>
+<body>
+    <h1>@Model?.Name, cпасибо ответ.</h1>
+    @if (Model?.WillAttend == true)
+    {
+        @:"Отлично! Выпивка кваса с нас";
+    }
+    else
+    {
+        @:"Вас будет нам не хватать.";
+    }
+    <br><a asp-action="ListResponces">Список принявших приглашение</a>
+</body>
+</html>

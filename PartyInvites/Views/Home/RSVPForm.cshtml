@@ -1,0 +1,36 @@
+﻿@model GuestResponse;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Форма приглашения</title>
+</head>
+<body>
+    <form asp-action="RSVPForm" method="post">
+        <div>
+            <label asp-for="Name">Введите ваше имя:</label>
+            <input asp-for="Name"/>
+        </div>
+        <div>
+            <label asp-for="Email">Введите ваш email:</label>
+            <input asp-for="Email"/>
+        </div>
+        <div>
+            <label asp-for="Phone">Введите ваш телефон:</label>
+            <input asp-for="Phone" />
+        </div>
+        <div>
+            <label asp-for="WillAttend">Выберите:</label>
+            <select asp-for="WillAttend">
+                <option value="">Выберите опцию</option>
+                <option value="true">Да</option>
+                <option value="false">Нет</option>
+            </select>
+        </div>
+        <button type="submit">Ответить</button>
+    </form>
+</body>
+</html>
