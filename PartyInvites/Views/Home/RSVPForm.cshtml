@@ -7,21 +7,26 @@
 <head>
     <meta charset="utf-8">
     <title>Форма приглашения</title>
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
     <form asp-action="RSVPForm" method="post">
         <div asp-validation-summary="All"></div>
         <div>
             <label asp-for="Name">Введите ваше имя:</label>
-            <input asp-for="Name"/>
+            <input type="text" class="input-validation-error" 
+            asp-for="Name" data-val="true" 
+            data-val-required="Введите ваше имя" />
         </div>
         <div>
             <label asp-for="Email">Введите ваш email:</label>
-            <input asp-for="Email"/>
+            <input asp-for="Email" type="email" class="input-validation-error"
+            data-val="true" data-val-required="Введите ваш email" />
         </div>
         <div>
             <label asp-for="Phone">Введите ваш телефон:</label>
-            <input asp-for="Phone" />
+            <input asp-for="Phone" type="tel" class="input-validation-error"
+            data-val="true" data-val-required="Введите ваш телефон" />
         </div>
         <div>
             <label asp-for="WillAttend">Выберите:</label>
